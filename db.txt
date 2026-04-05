@@ -1,0 +1,55 @@
+erDiagram
+    HOUSEHOLDS ||--o{ RESIDENTS : contains
+    RESIDENTS ||--o{ CERTIFICATES : requests
+    RESIDENTS ||--o{ BLOTTER_RECORDS : "complainant/respondent"
+    USERS ||--o{ CERTIFICATES : issues
+    
+    HOUSEHOLDS {
+        int id PK
+        string household_number
+        string street_address
+        string purok_zone
+        float latitude
+        float longitude
+    }
+
+    RESIDENTS {
+        int id PK
+        int household_id FK
+        string first_name
+        string last_name
+        date birth_date
+        string gender
+        string civil_status
+        boolean is_voter
+        boolean is_pwd
+        string occupation
+    }
+
+    CERTIFICATES {
+        int id PK
+        int resident_id FK
+        int issued_by_user_id FK
+        string cert_type
+        string purpose
+        datetime date_issued
+        string control_number
+    }
+
+    BLOTTER_RECORDS {
+        int id PK
+        int complainant_id FK
+        int respondent_id FK
+        string incident_type
+        datetime incident_date
+        string status
+        text narrative
+    }
+
+    USERS {
+        int id PK
+        string username
+        string password_hash
+        string role
+        string full_name
+    }

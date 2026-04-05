@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barangay Resident Information System</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>BRIS</h2>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="#" data-view="dashboard" class="active"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                    <li><a href="#" data-view="residents"><i class="fas fa-users"></i> Residents</a></li>
+                    <li><a href="#" data-view="households"><i class="fas fa-home"></i> Households</a></li>
+                    <li><a href="#" data-view="certificates"><i class="fas fa-file-contract"></i> Certificates</a></li>
+                    <li><a href="#" data-view="blotter"><i class="fas fa-gavel"></i> Blotter Records</a></li>
+                </ul>
+            </nav>
+        </aside>
+        <main class="main-content">
+            <header class="main-header">
+                <h1 id="view-title">Dashboard</h1>
+                <div class="user-info">
+                    <span>Admin</span>
+                    <i class="fas fa-user-circle"></i>
+                </div>
+            </header>
+            <section id="content-area">
+                <!-- Content will be injected here -->
+            </section>
+        </main>
+    </div>
+
+    <!-- Modal for Resident -->
+    <div id="resident-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="resident-modal-title">Add Resident</h2>
+                <span class="close-modal" data-modal="resident-modal">&times;</span>
+            </div>
+            <form id="resident-form">
+                <input type="hidden" id="resident-id">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Household</label>
+                        <select id="resident-household_id" required>
+                            <option value="">Select Household</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>First Name</label>
+                        <input type="text" id="resident-first_name" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Last Name</label>
+                        <input type="text" id="resident-last_name" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Birth Date</label>
+                        <input type="date" id="resident-birth_date" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Gender</label>
+                        <select id="resident-gender">
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Civil Status</label>
+                        <select id="resident-civil_status">
+                            <option value="Single">Single</option>
+                            <option value="Married">Married</option>
+                            <option value="Widowed">Widowed</option>
+                            <option value="Separated">Separated</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Occupation</label>
+                    <input type="text" id="resident-occupation">
+                </div>
+                <div class="form-row checkbox-group">
+                    <div>
+                        <input type="checkbox" id="resident-is_voter"> <label for="resident-is_voter">Is Voter</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="resident-is_pwd"> <label for="resident-is_pwd">Is PWD</label>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">Save Resident</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal for Household -->
+    <div id="household-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="household-modal-title">Add Household</h2>
+                <span class="close-modal" data-modal="household-modal">&times;</span>
+            </div>
+            <form id="household-form">
+                <input type="hidden" id="household-id">
+                <div class="form-group">
+                    <label>Household Number</label>
+                    <input type="text" id="household-household_number" required>
+                </div>
+                <div class="form-group">
+                    <label>Street Address</label>
+                    <input type="text" id="household-street_address" required>
+                </div>
+                <div class="form-group">
+                    <label>Purok/Zone</label>
+                    <input type="text" id="household-purok_zone">
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Latitude</label>
+                        <input type="number" step="any" id="household-latitude">
+                    </div>
+                    <div class="form-group">
+                        <label>Longitude</label>
+                        <input type="number" step="any" id="household-longitude">
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">Save Household</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal for Certificate -->
+    <div id="certificate-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="certificate-modal-title">Issue Certificate</h2>
+                <span class="close-modal" data-modal="certificate-modal">&times;</span>
+            </div>
+            <form id="certificate-form">
+                <input type="hidden" id="certificate-id">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Resident</label>
+                        <select id="certificate-resident_id" required>
+                            <option value="">Select Resident</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Issued By</label>
+                        <select id="certificate-issued_by_user_id" required>
+                            <option value="">Select User</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Certificate Type</label>
+                    <select id="certificate-cert_type">
+                        <option value="Barangay Clearance">Barangay Clearance</option>
+                        <option value="Certificate of Indigency">Certificate of Indigency</option>
+                        <option value="Barangay Residency">Barangay Residency</option>
+                        <option value="Business Permit">Business Permit</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Purpose</label>
+                    <input type="text" id="certificate-purpose" required>
+                </div>
+                <div class="form-group">
+                    <label>Control Number</label>
+                    <input type="text" id="certificate-control_number" required>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">Issue Certificate</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal for Blotter -->
+    <div id="blotter-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="blotter-modal-title">Record Blotter</h2>
+                <span class="close-modal" data-modal="blotter-modal">&times;</span>
+            </div>
+            <form id="blotter-form">
+                <input type="hidden" id="blotter-id">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Complainant</label>
+                        <select id="blotter-complainant_id" required>
+                            <option value="">Select Complainant</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Respondent</label>
+                        <select id="blotter-respondent_id" required>
+                            <option value="">Select Respondent</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Incident Type</label>
+                        <input type="text" id="blotter-incident_type" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Incident Date</label>
+                        <input type="datetime-local" id="blotter-incident_date" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Status</label>
+                    <select id="blotter-status">
+                        <option value="Pending">Pending</option>
+                        <option value="Settled">Settled</option>
+                        <option value="Dismissed">Dismissed</option>
+                        <option value="Referred">Referred</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Narrative</label>
+                    <textarea id="blotter-narrative" rows="4" style="width: 100%; padding: 0.6rem; border: 1px solid #ddd; border-radius: 4px;"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">Save Blotter Record</button>
+            </form>
+        </div>
+    </div>
+
+    <script type="module" src="js/app.js"></script>
+</body>
+</html>
